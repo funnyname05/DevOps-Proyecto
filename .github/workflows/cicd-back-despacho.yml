@@ -31,7 +31,7 @@ jobs:
         cd Springboot-API-REST-DESPACHO
         docker build -t back-despacho .
         docker tag back-despacho:latest ${{ secrets.ECR_REPO_URL_BACKEND_DESPACHO }}:v1
-        docker push ${{ secrets.ECR_REPO_URL_BACKEND }}:v1
+        docker push ${{ secrets.ECR_REPO_URL_BACKEND_DESPACHO }}:v1
 
     - name: Desplegar Backend vía SSM
       run: |
@@ -42,7 +42,7 @@ jobs:
           --parameters '{"commands":[
             "set -e",
             "aws ecr get-login-password --region '${{ secrets.AWS_REGION }}' | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}",
-            "docker pull ${{ secrets.ECR_REPO_URL_BACKEND }}:v1",
+            "docker pull ${{ secrets.ECR_REPO_URL_BACKEND_DESPACHO }}:v1",
             "docker stop back-despacho || true",
             "docker rm back-despacho || true",
             "docker run -d --name back-despacho -p 3001:3001 ${{ secrets.ECR_REPO_URL_BACKEND_DESPACHO }}:v1"
