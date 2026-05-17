@@ -1,17 +1,19 @@
 name: CI/CD Proyecto DB
+
 on:
   push:
     branches: [ "main" ]
     paths:
       - "db/**"
-      
+
 jobs:
   build-push-deploy-db:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout código
       uses: actions/checkout@v3
-      
+
     - name: Configurar credenciales AWS
       uses: aws-actions/configure-aws-credentials@v4
       with:
@@ -19,17 +21,16 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
         aws-region: ${{ secrets.AWS_REGION }}
-        
+
     - name: Login en Amazon ECR (runner)
       uses: aws-actions/amazon-ecr-login@v1
-      
+
     - name: Build imagen DB y push a ECR
       run: |
         cd db
         docker build -t proyecto-db .
         docker tag proyecto-db:latest ${{ secrets.ECR_REPO_URL_DB }}:v1
         docker push ${{ secrets.ECR_REPO_URL_DB }}:v1
-        
     - name: Desplegar DB vía SSM
       run: |
         aws ssm send-command \
