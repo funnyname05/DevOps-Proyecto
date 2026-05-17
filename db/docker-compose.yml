@@ -3,7 +3,7 @@ version: '3.8'
 services:
   database-service:
     build:
-      context: "db/."
+      context: .
       dockerfile: Dockerfile
     container_name: proyecto-db
     ports:
@@ -12,7 +12,7 @@ services:
       - mysql_production_data:/var/lib/mysql
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}  # Lee las variables locales del sistema
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
       - MYSQL_DATABASE=${DB_NAME}
 
 volumes:
