@@ -1,3 +1,5 @@
+--Comentario Test
+
 CREATE DATABASE IF NOT EXISTS db_despachos;
 USE db_despachos;
 
