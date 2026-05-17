@@ -29,8 +29,8 @@ jobs:
       run: |
         cd front_despacho
         docker build -t front-despacho .
-        docker tag front-despacho:latest ${{ secrets.ECR_REPO_URL_FRONTEND }}:latest
-        docker push ${{ secrets.ECR_REPO_URL_FRONTEND }}:latest
+        docker tag front-despacho:latest ${{ secrets.ECR_REPO_URL_FRONTEND }}:v1
+        docker push ${{ secrets.ECR_REPO_URL_FRONTEND }}:v1
 
     - name: Desplegar Frontend vía SSM
       run: |
@@ -41,9 +41,9 @@ jobs:
           --parameters '{"commands":[
             "set -e",
             "aws ecr get-login-password --region '${{ secrets.AWS_REGION }}' | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}",
-            "docker pull ${{ secrets.ECR_REPO_URL_FRONTEND }}:latest",
+            "docker pull ${{ secrets.ECR_REPO_URL_FRONTEND }}:v1",
             "docker stop front-despacho || true",
             "docker rm front-despacho || true",
-            "docker run -d --name front-despacho -p 80:80 ${{ secrets.ECR_REPO_URL_FRONTEND }}:latest"
+            "docker run -d --name front-despacho -p 80:80 ${{ secrets.ECR_REPO_URL_FRONTEND }}:v1"
           ]}' \
           --output text
