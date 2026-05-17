@@ -30,7 +30,7 @@ jobs:
         cd back-Despachos_SpringBoot
         cd Springboot-API-REST-DESPACHO
         docker build -t back-despacho .
-        docker tag back-despacho:latest ${{ secrets.ECR_REPO_URL_BACKEND }}:v1
+        docker tag back-despacho:latest ${{ secrets.ECR_REPO_URL_BACKEND_DESPACHO }}:v1
         docker push ${{ secrets.ECR_REPO_URL_BACKEND }}:v1
 
     - name: Desplegar Backend vía SSM
@@ -45,6 +45,6 @@ jobs:
             "docker pull ${{ secrets.ECR_REPO_URL_BACKEND }}:v1",
             "docker stop back-despacho || true",
             "docker rm back-despacho || true",
-            "docker run -d --name back-despacho -p 3001:3001 ${{ secrets.ECR_REPO_URL_BACKEND }}:v1"
+            "docker run -d --name back-despacho -p 3001:3001 ${{ secrets.ECR_REPO_URL_BACKEND_DESPACHO }}:v1"
           ]}' \
           --output text
