@@ -4,6 +4,7 @@ on:
     branches: [ "main" ]
     paths:
       - "db/**"
+      
 jobs:
   build-push-deploy-db:
     runs-on: ubuntu-latest
