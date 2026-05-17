@@ -1,11 +1,7 @@
--- Comentario Test 1
-
-CREATE DATABASE IF NOT EXISTS db_despachos;
-USE db_despachos;
-
-DROP TABLE IF EXISTS despacho;
+-- Base de datos de Ventas
+CREATE DATABASE IF NOT EXISTS db_ventas;
+USE db_ventas;
 DROP TABLE IF EXISTS venta;
-
 CREATE TABLE venta (
     id_venta BIGINT NOT NULL AUTO_INCREMENT,
     direccion_compra VARCHAR(255) NOT NULL,
@@ -15,6 +11,17 @@ CREATE TABLE venta (
     PRIMARY KEY (id_venta)
 ) ENGINE=InnoDB;
 
+INSERT INTO venta (direccion_compra, valor_compra, fecha_compra, despacho_generado) VALUES
+('Av. Vitacura 1230, Santiago', 45000, '2026-05-10', b'1'),
+('Calle Los Almendros 452, Viña del Mar', 12500, '2026-05-12', b'1'),
+('Pasaje El Sol 89, Concepción', 89990, '2026-05-15', b'0'),
+('Av. El Bosque 7741, Providencia', 32000, '2026-05-16', b'1'),
+('Camino Melipilla KM 32, Talagante', 150000, '2026-05-17', b'0');
+
+-- Base de datos de Despachos
+CREATE DATABASE IF NOT EXISTS db_despachos;
+USE db_despachos;
+DROP TABLE IF EXISTS despacho;
 CREATE TABLE despacho (
     id_despacho BIGINT NOT NULL AUTO_INCREMENT,
     fecha_despacho DATE,
@@ -26,13 +33,6 @@ CREATE TABLE despacho (
     despachado BIT(1) NOT NULL DEFAULT b'0',
     PRIMARY KEY (id_despacho)
 ) ENGINE=InnoDB;
-
-INSERT INTO venta (direccion_compra, valor_compra, fecha_compra, despacho_generado) VALUES
-('Av. Vitacura 1230, Santiago', 45000, '2026-05-10', b'1'),
-('Calle Los Almendros 452, Viña del Mar', 12500, '2026-05-12', b'1'),
-('Pasaje El Sol 89, Concepción', 89990, '2026-05-15', b'0'),
-('Av. El Bosque 7741, Providencia', 32000, '2026-05-16', b'1'),
-('Camino Melipilla KM 32, Talagante', 150000, '2026-05-17', b'0');
 
 INSERT INTO despacho (fecha_despacho, patente_camion, intento, id_compra, direccion_compra, valor_compra, despachado) VALUES
 ('2026-05-11', 'AB-CD-12', 1, 1, 'Av. Vitacura 1230, Santiago', 45000, b'1'),
