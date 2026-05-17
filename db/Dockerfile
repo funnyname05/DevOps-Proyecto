@@ -1,7 +1,7 @@
 # Usamos la imagen oficial de MySQL versión 8.0 como base
 FROM mysql:8.0
 
--- Definir el directorio de trabajo dentro del contenedor
+# Definir el directorio de trabajo dentro del contenedor
 WORKDIR /app
 
 # Configurar variables de entorno por defecto (pueden ser sobrescritas al correrlo)
