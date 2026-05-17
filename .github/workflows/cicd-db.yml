@@ -25,8 +25,7 @@ jobs:
       
     - name: Build imagen DB y push a ECR
       run: |
-        mkdir proyecto-db
-        cd proyecto-db
+        cd db
         docker build -t proyecto-db .
         docker tag proyecto-db:latest ${{ secrets.ECR_REPO_URL_DB }}:v1
         docker push ${{ secrets.ECR_REPO_URL_DB }}:v1
