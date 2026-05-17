@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - "back-Despachos_SpringBoot/**"
+      - "back-Despachos_SpringBoot/Springboot-API-REST-DESPACHO**"
 
 jobs:
   build-push-deploy-backend:
