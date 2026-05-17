@@ -1,3 +1,6 @@
+CREATE USER IF NOT EXISTS 'user_ventas'@'%' IDENTIFIED BY 'password_ventas';
+CREATE USER IF NOT EXISTS 'user_despachos'@'%' IDENTIFIED BY 'password_despachos';
+
 -- Base de datos de Ventas
 CREATE DATABASE IF NOT EXISTS db_ventas;
 USE db_ventas;
