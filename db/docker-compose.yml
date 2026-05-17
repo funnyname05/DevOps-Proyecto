@@ -4,14 +4,16 @@ services:
   proyecto-db:
     image: ${ECR_REPO_URL_DB}:v1
     container_name: proyecto-db
-    restart: always          # <-- se levanta solo al encender la instancia
+    restart: always
     ports:
       - "3306:3306"
     volumes:
       - dbdata:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_USERNAME}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
 
 volumes:
   dbdata:
