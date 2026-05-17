@@ -1,20 +1,18 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  database-service:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  proyecto-db:
+    image: ${ECR_REPO_URL_DB}:v1
     container_name: proyecto-db
+    restart: always          # <-- se levanta solo al encender la instancia
     ports:
       - "3306:3306"
     volumes:
-      - mysql_production_data:/var/lib/mysql
-    restart: always
+      - dbdata:/var/lib/mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
-      - MYSQL_DATABASE=${DB_NAME}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_USERNAME}
 
 volumes:
-  mysql_production_data:
+  dbdata:
     driver: local
