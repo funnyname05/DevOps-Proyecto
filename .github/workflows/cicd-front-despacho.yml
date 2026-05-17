@@ -1,4 +1,4 @@
-name: CI/CD Tienda Perritos - Frontend
+name: CI/CD Frontend 
 
 on:
   push:
