@@ -1,5 +1,4 @@
 name: CI/CD Backend Ventas
-
 on:
   push:
     branches: [ "main" ]
@@ -7,9 +6,8 @@ on:
       - "back-Ventas_SpringBoot/Springboot-API-REST/**"
 
 jobs:
-  build-push-deploy-backend:
+  build-push-deploy-backend-ventas:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout código
       uses: actions/checkout@v3
@@ -25,25 +23,26 @@ jobs:
     - name: Login en Amazon ECR (runner)
       uses: aws-actions/amazon-ecr-login@v1
 
-    - name: Build imagen Backend y push a ECR
+    - name: Build imagen Backend Ventas y push a ECR
       run: |
-        cd back-despacho
+        cd back-Ventas_SpringBoot/Springboot-API-REST
         docker build -t back-ventas .
-        docker tag back-ventas:latest ${{ secrets.ECR_REPO_URL_BACKEND }}:v1
-        docker push ${{ secrets.ECR_REPO_URL_BACKEND }}:v1
+        docker tag back-ventas:latest ${{ secrets.ECR_REPO_URL_BACKEND_VENTAS }}:v1
+        docker push ${{ secrets.ECR_REPO_URL_BACKEND_VENTAS }}:v1
 
-    - name: Desplegar Backend vía SSM
+    - name: Desplegar Backend Ventas vía SSM
       run: |
         aws ssm send-command \
           --instance-ids ${{ secrets.EC2_BACKEND_INSTANCE_ID }} \
           --document-name "AWS-RunShellScript" \
-          --comment "Actualizar tienda-backend desde ECR" \
+          --comment "Actualizar back-ventas desde ECR" \
           --parameters '{"commands":[
             "set -e",
-            "aws ecr get-login-password --region '${{ secrets.AWS_REGION }}' | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}",
-            "docker pull ${{ secrets.ECR_REPO_URL_BACKEND }}:v1",
-            "docker stop back-ventas || true",
-            "docker rm back-ventas || true",
-            "docker run -d --name back-ventas -p 3001:3001 ${{ secrets.ECR_REPO_URL_BACKEND }}:v1"
+            "curl -L -o /home/ec2-user/docker-compose.yml https://raw.githubusercontent.com/funnyname05/DevOps-Proyecto/refs/heads/main/Backend/docker-compose.yml",
+            "source /home/ec2-user/.env",
+            "aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY",
+            "cd /home/ec2-user",
+            "docker compose pull",
+            "docker compose up -d --force-recreate --remove-orphans"
           ]}' \
           --output text
