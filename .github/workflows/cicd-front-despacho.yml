@@ -1,5 +1,4 @@
-name: CI/CD Frontend 
-
+name: CI/CD Frontend
 on:
   push:
     branches: [ "main" ]
@@ -9,7 +8,6 @@ on:
 jobs:
   build-push-deploy-frontend:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout código
       uses: actions/checkout@v3
@@ -37,13 +35,14 @@ jobs:
         aws ssm send-command \
           --instance-ids ${{ secrets.EC2_FRONTEND_INSTANCE_ID }} \
           --document-name "AWS-RunShellScript" \
-          --comment "Actualizar tienda-frontend desde ECR" \
+          --comment "Actualizar front-despacho desde ECR" \
           --parameters '{"commands":[
             "set -e",
-            "aws ecr get-login-password --region '${{ secrets.AWS_REGION }}' | docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}",
-            "docker pull ${{ secrets.ECR_REPO_URL_FRONTEND }}:v1",
-            "docker stop front-despacho || true",
-            "docker rm front-despacho || true",
-            "docker run -d --name front-despacho -p 80:80 ${{ secrets.ECR_REPO_URL_FRONTEND }}:v1"
+            "curl -L -o /home/ec2-user/docker-compose.yml https://raw.githubusercontent.com/funnyname05/DevOps-Proyecto/refs/heads/main/front_despacho/docker-compose.yml",
+            "source /home/ec2-user/.env",
+            "aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REGISTRY",
+            "cd /home/ec2-user",
+            "docker compose pull",
+            "docker compose up -d --force-recreate --remove-orphans"
           ]}' \
           --output text
