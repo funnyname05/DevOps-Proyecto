@@ -1,0 +1,26 @@
+services:
+  back-despacho:
+    image: ${ECR_REPO_URL_BACKEND_DESPACHO}:v1
+    container_name: back-despacho
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      DB_ENDPOINT: ${DB_ENDPOINT}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME_DESPACHOS}
+      DB_USERNAME: ${DB_USER_DESPACHOS}
+      DB_PASSWORD: ${DB_PASSWORD_DESPACHOS}
+
+  back-ventas:
+    image: ${ECR_REPO_URL_BACKEND_VENTAS}:v1
+    container_name: back-ventas
+    restart: always
+    ports:
+      - "8081:8080"
+    environment:
+      DB_ENDPOINT: ${DB_ENDPOINT}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME_VENTAS}
+      DB_USERNAME: ${DB_USER_VENTAS}
+      DB_PASSWORD: ${DB_PASSWORD_VENTAS}
