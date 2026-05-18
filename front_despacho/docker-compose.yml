@@ -1,0 +1,7 @@
+services:
+  front-despacho:
+    image: ${ECR_REPO_URL_FRONTEND}:v1
+    container_name: front-despacho
+    restart: always
+    ports:
+      - "80:80"
