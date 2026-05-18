@@ -1,11 +1,16 @@
+-- ================================================
+-- Usuarios
+-- ================================================
 CREATE USER IF NOT EXISTS 'user_ventas'@'%' IDENTIFIED BY 'password_ventas';
 CREATE USER IF NOT EXISTS 'user_despachos'@'%' IDENTIFIED BY 'password_despachos';
 
--- Comando Test
-
--- Base de datos de Ventas
+-- ================================================
+-- Base de datos Ventas
+-- ================================================
 CREATE DATABASE IF NOT EXISTS db_ventas;
+GRANT ALL PRIVILEGES ON db_ventas.* TO 'user_ventas'@'%';
 USE db_ventas;
+
 DROP TABLE IF EXISTS venta;
 CREATE TABLE venta (
     id_venta BIGINT NOT NULL AUTO_INCREMENT,
@@ -23,9 +28,13 @@ INSERT INTO venta (direccion_compra, valor_compra, fecha_compra, despacho_genera
 ('Av. El Bosque 7741, Providencia', 32000, '2026-05-16', b'1'),
 ('Camino Melipilla KM 32, Talagante', 150000, '2026-05-17', b'0');
 
--- Base de datos de Despachos
+-- ================================================
+-- Base de datos Despachos
+-- ================================================
 CREATE DATABASE IF NOT EXISTS db_despachos;
+GRANT ALL PRIVILEGES ON db_despachos.* TO 'user_despachos'@'%';
 USE db_despachos;
+
 DROP TABLE IF EXISTS despacho;
 CREATE TABLE despacho (
     id_despacho BIGINT NOT NULL AUTO_INCREMENT,
@@ -45,3 +54,5 @@ INSERT INTO despacho (fecha_despacho, patente_camion, intento, id_compra, direcc
 ('2026-05-14', 'EF-GH-34', 2, 2, 'Calle Los Almendros 452, Viña del Mar', 12500, b'1'),
 ('2026-05-17', 'XY-ZW-99', 1, 4, 'Av. El Bosque 7741, Providencia', 32000, b'0'),
 (NULL, NULL, 0, NULL, 'Dirección de Prueba Manual', 7500, b'0');
+
+FLUSH PRIVILEGES;
