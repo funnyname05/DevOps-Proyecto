@@ -11,6 +11,11 @@ CREATE DATABASE IF NOT EXISTS db_ventas;
 GRANT ALL PRIVILEGES ON db_ventas.* TO 'user_ventas'@'%';
 USE db_ventas;
 
+CREATE TABLE IF NOT EXISTS venta_seq (
+    next_val BIGINT
+) ENGINE=InnoDB;
+INSERT INTO venta_seq VALUES (1);
+
 DROP TABLE IF EXISTS venta;
 CREATE TABLE venta (
     id_venta BIGINT NOT NULL AUTO_INCREMENT,
@@ -34,6 +39,11 @@ INSERT INTO venta (direccion_compra, valor_compra, fecha_compra, despacho_genera
 CREATE DATABASE IF NOT EXISTS db_despachos;
 GRANT ALL PRIVILEGES ON db_despachos.* TO 'user_despachos'@'%';
 USE db_despachos;
+
+CREATE TABLE IF NOT EXISTS despacho_seq (
+    next_val BIGINT
+) ENGINE=InnoDB;
+INSERT INTO despacho_seq VALUES (1);
 
 DROP TABLE IF EXISTS despacho;
 CREATE TABLE despacho (
