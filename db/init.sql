@@ -14,7 +14,7 @@ USE db_ventas;
 CREATE TABLE IF NOT EXISTS venta_seq (
     next_val BIGINT
 ) ENGINE=InnoDB;
-INSERT INTO venta_seq VALUES (1);
+INSERT INTO venta_seq VALUES (51);  -- ← empieza en 51
 
 DROP TABLE IF EXISTS venta;
 CREATE TABLE venta (
@@ -43,7 +43,7 @@ USE db_despachos;
 CREATE TABLE IF NOT EXISTS despacho_seq (
     next_val BIGINT
 ) ENGINE=InnoDB;
-INSERT INTO despacho_seq VALUES (1);
+INSERT INTO despacho_seq VALUES (51);  -- ← empieza en 51
 
 DROP TABLE IF EXISTS despacho;
 CREATE TABLE despacho (
