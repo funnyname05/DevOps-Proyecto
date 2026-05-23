@@ -62,7 +62,6 @@ INSERT INTO despacho (fecha_despacho, patente_camion, intento, id_compra, direcc
 ('2026-05-11', 'AB-CD-12', 1, 1, 'Av. Vitacura 1230, Santiago', 45000, b'1'),
 ('2026-05-13', 'EF-GH-34', 1, 2, 'Calle Los Almendros 452, Viña del Mar', 12500, b'0'),
 ('2026-05-14', 'EF-GH-34', 2, 2, 'Calle Los Almendros 452, Viña del Mar', 12500, b'1'),
-('2026-05-17', 'XY-ZW-99', 1, 4, 'Av. El Bosque 7741, Providencia', 32000, b'0'),
-(NULL, NULL, 0, NULL, 'Dirección de Prueba Manual', 7500, b'0');
+('2026-05-17', 'XY-ZW-99', 1, 4, 'Av. El Bosque 7741, Providencia', 32000, b'0');
 
 FLUSH PRIVILEGES;
