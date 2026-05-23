@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Despacho {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idDespacho;
     //@NotNull(message = "Fecha de despacho es obligatoria")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)  // Especifica el formato de fecha
