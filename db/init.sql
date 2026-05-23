@@ -27,10 +27,10 @@ CREATE TABLE venta (
 ) ENGINE=InnoDB;
 
 INSERT INTO venta (direccion_compra, valor_compra, fecha_compra, despacho_generado) VALUES
-('Av. Vitacura 1230, Santiago', 45000, '2026-05-10', b'1'),
-('Calle Los Almendros 452, Viña del Mar', 12500, '2026-05-12', b'1'),
+('Av. Vitacura 1230, Santiago', 45000, '2026-05-10', b'0'),
+('Calle Los Almendros 452, Viña del Mar', 12500, '2026-05-12', b'0'),
 ('Pasaje El Sol 89, Concepción', 89990, '2026-05-15', b'0'),
-('Av. El Bosque 7741, Providencia', 32000, '2026-05-16', b'1'),
+('Av. El Bosque 7741, Providencia', 32000, '2026-05-16', b'0'),
 ('Camino Melipilla KM 32, Talagante', 150000, '2026-05-17', b'0');
 
 -- ================================================
