@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proyecto-db
+  namespace: proyecto
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: proyecto-db
+  template:
+    metadata:
+      labels:
+        app: proyecto-db
+    spec:
+      imagePullSecrets:
+      - name: ecr-secret
+      containers:
+      - name: proyecto-db
+        image: 895716090405.dkr.ecr.us-east-1.amazonaws.com/devops/proyecto-db:v1
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secrets
+              key: DB_ROOT_PASSWORD
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
