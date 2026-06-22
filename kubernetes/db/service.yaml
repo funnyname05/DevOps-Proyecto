@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: proyecto-db-service
+  namespace: proyecto
+spec:
+  selector:
+    app: proyecto-db
+  ports:
+  - port: 3306
+    targetPort: 3306
+  type: ClusterIP
