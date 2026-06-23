@@ -17,7 +17,7 @@ spec:
       - name: ecr-secret
       containers:
       - name: back-ventas
-        image: 895716090405.dkr.ecr.us-east-1.amazonaws.com/devops/back-ventas:v1
+        image: 046533024277.dkr.ecr.us-east-1.amazonaws.com/devops/back-ventas:v1
         ports:
         - containerPort: 8080
         env:

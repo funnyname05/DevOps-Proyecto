@@ -17,7 +17,7 @@ spec:
       - name: ecr-secret
       containers:
       - name: proyecto-db
-        image: 895716090405.dkr.ecr.us-east-1.amazonaws.com/devops/proyecto-db:v1
+        image: 046533024277.dkr.ecr.us-east-1.amazonaws.com/devops/proyecto-db:v1
         ports:
         - containerPort: 3306
         env:
