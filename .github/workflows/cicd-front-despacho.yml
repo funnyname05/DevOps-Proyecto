@@ -54,12 +54,21 @@ jobs:
         chmod +x kubectl
         sudo mv kubectl /usr/local/bin/kubectl
 
+    - name: Build imagen Frontend y push a ECR
+      run: |
+        cd front_despacho
+        docker build -t front-despacho .
+        docker tag front-despacho:latest ${{ secrets.ECR_REPO_URL_FRONTEND }}:${{ github.sha }}
+        docker tag front-despacho:latest ${{ secrets.ECR_REPO_URL_FRONTEND }}:latest
+        docker push ${{ secrets.ECR_REPO_URL_FRONTEND }}:${{ github.sha }}
+        docker push ${{ secrets.ECR_REPO_URL_FRONTEND }}:latest
+
     - name: Actualizar imagen en EKS
       run: |
         aws eks update-kubeconfig \
           --region ${{ secrets.AWS_REGION }} \
           --name ${{ secrets.EKS_CLUSTER_NAME }}
         kubectl set image deployment/front-despacho \
-          front-despacho=${{ secrets.ECR_REPO_URL_FRONTEND }}:v1 \
+          front-despacho=${{ secrets.ECR_REPO_URL_FRONTEND }}:${{ github.sha }} \
           -n proyecto
         kubectl rollout status deployment/front-despacho -n proyecto
