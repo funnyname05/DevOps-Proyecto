@@ -3,6 +3,9 @@ kind: Service
 metadata:
   name: front-despacho-service
   namespace: proyecto
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-0388bff2bc3d855b3,subnet-0c3855a4fe40879b7
 spec:
   selector:
     app: front-despacho
