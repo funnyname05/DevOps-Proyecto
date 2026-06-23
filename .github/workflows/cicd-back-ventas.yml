@@ -31,6 +31,7 @@ jobs:
         docker push ${{ secrets.ECR_REPO_URL_BACKEND_VENTAS }}:v1
 
     - name: Desplegar Backend Ventas vía SSM
+      continue-on-error: true
       run: |
         aws ssm send-command \
           --instance-ids ${{ secrets.EC2_BACKEND_INSTANCE_ID }} \
@@ -46,3 +47,19 @@ jobs:
             "docker compose up -d --force-recreate --remove-orphans"
           ]}' \
           --output text
+
+    - name: Instalar kubectl
+      run: |
+        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+        chmod +x kubectl
+        sudo mv kubectl /usr/local/bin/kubectl
+
+    - name: Actualizar imagen en EKS
+      run: |
+        aws eks update-kubeconfig \
+          --region ${{ secrets.AWS_REGION }} \
+          --name ${{ secrets.EKS_CLUSTER_NAME }}
+        kubectl set image deployment/back-ventas \
+          back-ventas=${{ secrets.ECR_REPO_URL_BACKEND_VENTAS }}:v1 \
+          -n proyecto
+        kubectl rollout status deployment/back-ventas -n proyecto
