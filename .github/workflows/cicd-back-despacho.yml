@@ -1,7 +1,7 @@
 name: CI/CD Backend Despacho
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "deploy" ]
     paths:
       - "back-Despachos_SpringBoot/Springboot-API-REST-DESPACHO/**"
 
