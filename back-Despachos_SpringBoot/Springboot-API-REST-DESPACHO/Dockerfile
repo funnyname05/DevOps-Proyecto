@@ -1,3 +1,4 @@
+# Test
 # Etapa 1: Construcción (Build)
 # Usamos una imagen de Maven con JDK 17 basada en Alpine para que sea ligera
 FROM maven:3.9.6-eclipse-temurin-17-alpine AS build
