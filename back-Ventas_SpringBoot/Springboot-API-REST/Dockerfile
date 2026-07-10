@@ -1,3 +1,4 @@
+# Test
 # Etapa 1: Compilación (Build)
 # Usamos una imagen de Maven con JDK 17 para compilar el proyecto
 FROM maven:3.9.6-eclipse-temurin-17-alpine AS build
